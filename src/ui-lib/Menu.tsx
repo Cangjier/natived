@@ -1,7 +1,6 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import React from "react";
 import { InjectClass } from "../lib/InjectStyle";
-import { ISvgTheme, Svg } from "./Svg";
 import { useUpdate } from "../lib/Util";
 
 export interface IMenuProps {
