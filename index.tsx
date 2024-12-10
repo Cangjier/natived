@@ -6,7 +6,7 @@ export * from './ui-lib/Menu'
 
 export * from './lib/Path'
 export * from './lib/Window'
-export * from './lib/Date'
+export * from './lib/DateTime'
 export * from './lib/String'
 export * from './lib/InjectStyle'
 export * from './lib/Util'
