@@ -30,9 +30,20 @@ export const convertLengthToAlias = (length: number) => {
 export const useUpdate = <T>(value: T) => {
     const [state, setstate] = useState<T>(value)
     const ref = useRef<T>(value)
-    const update = (value: T) => {
-        ref.current = value
-        setstate(value)
+    const update = (value: React.SetStateAction<T>) => {
+        if (typeof value == "function") {
+            let func = value as (prevState: T) => T;
+            setstate(old => {
+                let newState = func(old);
+                ref.current = newState;
+                return newState;
+            });
+        }
+        else {
+            ref.current = value
+            setstate(value)
+        }
+
     }
     return [state, update, ref] as const
 }
