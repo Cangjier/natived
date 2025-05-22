@@ -1,9 +1,6 @@
 import React, { JSX } from "react"
 import { MouseEventHandler, forwardRef, useEffect, useState } from "react"
 
-export interface IFlexRef {
-}
-
 export interface IFlexProps {
     id?: string,
     className?: string,
@@ -21,7 +18,7 @@ export interface IFlexProps {
     onMouseUp?: MouseEventHandler<HTMLDivElement>,
 }
 
-const Flex = forwardRef<IFlexRef, IFlexProps>((props, ref) => {
+const Flex = forwardRef<HTMLDivElement, IFlexProps>((props, ref) => {
     const renderSpacing = (spacing: JSX.Element | string | number | undefined) => {
         if (spacing === undefined) return undefined;
         else if (typeof spacing === 'string' || typeof spacing === 'number') return <span style={{
@@ -58,6 +55,7 @@ const Flex = forwardRef<IFlexRef, IFlexProps>((props, ref) => {
         }
     }
     return <div
+        ref={ref}
         id={props.id}
         className={props.className}
         style={{
@@ -75,11 +73,11 @@ const Flex = forwardRef<IFlexRef, IFlexProps>((props, ref) => {
     </div>
 })
 
-const Vertical = forwardRef<IFlexRef, IFlexProps>((props, ref) => {
+const Vertical = forwardRef<HTMLDivElement, IFlexProps>((props, ref) => {
     return <Flex ref={ref} {...props} direction='column' />
 })
 
-const Horizontal = forwardRef<IFlexRef, IFlexProps>((props, ref) => {
+const Horizontal = forwardRef<HTMLDivElement, IFlexProps>((props, ref) => {
     return <Flex ref={ref} {...props} direction='row' />
 })
 
