@@ -28,11 +28,16 @@ z-index: 99; /* 设置菜单的层叠顺序较高，使其浮在内容之上 */
 
 function containsDescendant(parent: Node, child: Node): boolean {
     let currentNode: Node | null = child;
+    let iteration = 0;
     while (currentNode) {
         if (currentNode === parent) {
             return true;
         }
         currentNode = currentNode.parentNode;
+        iteration++;
+        if (iteration > 1000) {
+            return false;
+        }
     }
     return false;
 }
