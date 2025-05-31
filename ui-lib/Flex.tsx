@@ -30,32 +30,23 @@ const Flex = forwardRef<HTMLDivElement, IFlexProps>((props, ref) => {
     }
     const renderChildren = (children: React.ReactNode) => {
         if (props.spacing === undefined) return children;
-        else if (children === undefined) return undefined;
-        else if (children instanceof Array) {
-            let tempChildren = children as React.ReactNode[];
-            return tempChildren.map((child, index) => {
-                const key = (React.isValidElement(child) && child.key != null) ? child.key : index;
-                return <React.Fragment key={key}>
-                    {index === 0 && props.spacingStart !== undefined ? renderSpacing(props.spacingStart) : undefined}
+        if (children === undefined) return undefined;
+    
+        const tempChildren = React.Children.toArray(children);
+    
+        return tempChildren.map((child, index) => {
+            const key = (React.isValidElement(child) && child.key != null) ? child.key : index;
+            return (
+                <React.Fragment key={key}>
+                    {index === 0 && props.spacingStart !== undefined ? renderSpacing(props.spacingStart) : null}
                     {child}
-                    {index < tempChildren.length - 1 ? renderSpacing(props.spacing) : undefined}
-                    {index === tempChildren.length - 1 && props.spacingEnd !== undefined ? renderSpacing(props.spacingEnd) : undefined}
+                    {index < tempChildren.length - 1 ? renderSpacing(props.spacing) : null}
+                    {index === tempChildren.length - 1 && props.spacingEnd !== undefined ? renderSpacing(props.spacingEnd) : null}
                 </React.Fragment>
-            })
-        }
-        else {
-            let tempChildren = [children] as React.ReactNode[];
-            return tempChildren.map((child, index) => {
-                const key = (React.isValidElement(child) && child.key != null) ? child.key : index;
-                return <React.Fragment key={key}>
-                    {index === 0 && props.spacingStart !== undefined ? renderSpacing(props.spacingStart) : undefined}
-                    {child}
-                    {index < tempChildren.length - 1 ? renderSpacing(props.spacing) : undefined}
-                    {index === tempChildren.length - 1 && props.spacingEnd !== undefined ? renderSpacing(props.spacingEnd) : undefined}
-                </React.Fragment>
-            })
-        }
-    }
+            );
+        });
+    };
+    
     return <div
         ref={ref}
         id={props.id}
