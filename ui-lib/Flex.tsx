@@ -34,7 +34,8 @@ const Flex = forwardRef<HTMLDivElement, IFlexProps>((props, ref) => {
         else if (children instanceof Array) {
             let tempChildren = children as React.ReactNode[];
             return tempChildren.map((child, index) => {
-                return <React.Fragment key={index}>
+                const key = (React.isValidElement(child) && child.key != null) ? child.key : index;
+                return <React.Fragment key={key}>
                     {index === 0 && props.spacingStart !== undefined ? renderSpacing(props.spacingStart) : undefined}
                     {child}
                     {index < tempChildren.length - 1 ? renderSpacing(props.spacing) : undefined}
@@ -45,7 +46,8 @@ const Flex = forwardRef<HTMLDivElement, IFlexProps>((props, ref) => {
         else {
             let tempChildren = [children] as React.ReactNode[];
             return tempChildren.map((child, index) => {
-                return <React.Fragment key={index}>
+                const key = (React.isValidElement(child) && child.key != null) ? child.key : index;
+                return <React.Fragment key={key}>
                     {index === 0 && props.spacingStart !== undefined ? renderSpacing(props.spacingStart) : undefined}
                     {child}
                     {index < tempChildren.length - 1 ? renderSpacing(props.spacing) : undefined}
